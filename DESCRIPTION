@@ -1,6 +1,6 @@
 Package: KnapsackPackage
 Type: Package
-Title: What the package does (short line)
+Title: Package containing various solutions for the Knapsack problem
 Version: 1.0
 Date: 2022-09-29
 Author: Who wrote it
