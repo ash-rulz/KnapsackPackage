@@ -1,7 +1,7 @@
 #' Helper Method To Get The Correct Indexes
 #'
-#' @param final_mat 
-#' @param val 
+#' @param final_mat Final matrix of values
+#' @param val Final value
 #'
 #' @return
 #' @export
@@ -18,8 +18,9 @@ seq_of_decision <- function(final_mat, val){
 
 #' Solving Knapsack Problem By Dynamic Method
 #'
-#' @param x 
-#' @param W 
+#' @param x Data frame containing elements to be added to the knapsack
+#' @param W Maximum weight of the knapsack
+#'
 #'
 #' @return
 #' @export

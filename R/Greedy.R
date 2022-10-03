@@ -1,7 +1,8 @@
 #' Greedy Heuristic Approach For Knapsack Problem
 #'
-#' @param x 
-#' @param W 
+#' @param x Data frame containing elements to be added to the knapsack
+#' @param W Maximum weight of the knapsack
+#'  
 #'
 #' @return
 #' @export

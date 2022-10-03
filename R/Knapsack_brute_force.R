@@ -1,16 +1,18 @@
 #' Solving Knapsack Problem By Brute Force Method
 #'
-#' @param x 
-#' @param W 
+#' @param x Data frame containing elements to be added to the knapsack
+#' @param W Maximum weight of the knapsack
+#' @param parallel Argument to parallelize brute force
 #'
 #' @return
-#' @import combinat
 #' @import tidyr
 #' @import dplyr
-#' @export
+#' @import parallel
+#' @importFrom combinat combn
+#' @export 
 #'
 #' @examples
-brute_force_knapsack <- function(x, W, paralellize = FALSE){
+brute_force_knapsack <- function(x, W, parallel = FALSE){
   # RNGversion(min(as.character(getRversion()),"3.5.3"))
   # set.seed(42, kind = "Mersenne-Twister", normal.kind = "Inversion")
   # n <- 2000
@@ -27,11 +29,11 @@ brute_force_knapsack <- function(x, W, paralellize = FALSE){
   if (W <= 0) {
     stop('Please input a valid input')
   }
-  if (paralellize == TRUE) {
-    cores <- detectCores()
-    cl1 <- makeCluster(cores, type = 'PSOCK')
+  if (parallel == TRUE) {
+    cores <- parallel::detectCores()
+    cl1 <- parallel::makeCluster(cores, type = 'PSOCK')
     items_element <- data.frame(items = 1:nrow(x))
-    w_sum_val <- parApply(cl = cl1, X = x, MARGIN = 2, FUN = function(x){
+    w_sum_val <- parallel::parApply(cl = cl1, X = x, MARGIN = 2, FUN = function(x){
       colSums(combn(x,2))
     })
     # w_sum_val <- as.data.frame(w_sum_val)
@@ -41,9 +43,9 @@ brute_force_knapsack <- function(x, W, paralellize = FALSE){
     # w_sum_val
     stopCluster(cl1)
     
-    cl2 <- makeCluster(cores, type = 'PSOCK')
+    cl2 <- parallel::makeCluster(cores, type = 'PSOCK')
     # clusterExport(cl1, varlist = 'items_element')
-    item_comb <- parApply(cl = cl2, X = items_element, MARGIN = 2, FUN = function(y){
+    item_comb <- parallel::parApply(cl = cl2, X = items_element, MARGIN = 2, FUN = function(y){
       as.data.frame(combn(items_element[,1],2))
     })
     # item_comb <- t(item_comb)
@@ -56,7 +58,7 @@ brute_force_knapsack <- function(x, W, paralellize = FALSE){
     w_sum_val <- cbind(w_sum_val, item_comb)
     row.names(w_sum_val) <- NULL
     # w_sum_val
-    filter_wt <- filter(w_sum_val, sum_wt_i <= W)
+    filter_wt <- dplyr::filter(w_sum_val, sum_wt_i <= W)
     # filter_wt
     max_val_index <- which.max(filter_wt$sum_val_i)
     # max_val_index
@@ -94,9 +96,6 @@ brute_force_knapsack <- function(x, W, paralellize = FALSE){
   sum_val <- colSums(val_comb)
   sum_val
   
-  library(dplyr)
-  library(tidyverse)
-  
   sum_wt_val_df <- data.frame()
   sum_wt_val_df <- rbind(sum_wt_val_df, sum_wt, sum_val)
   sum_wt_val_df <- t(sum_wt_val_df)
@@ -125,18 +124,14 @@ brute_force_knapsack <- function(x, W, paralellize = FALSE){
   }
   return(final_list)
 }
-RNGversion(min(as.character(getRversion()),"3.5.3"))
-set.seed(42, kind = "Mersenne-Twister", normal.kind = "Inversion")
-n <- 2000
-knapsack_objects <-
-  data.frame(
-    w=sample(1:4000, size = n, replace = TRUE),
-    v=runif(n = n, 0, 10000)
-  )
+# RNGversion(min(as.character(getRversion()),"3.5.3"))
+# set.seed(42, kind = "Mersenne-Twister", normal.kind = "Inversion")
+# n <- 2000
+# knapsack_objects <-
+#   data.frame(
+#     w=sample(1:4000, size = n, replace = TRUE),
+#     v=runif(n = n, 0, 10000)
+#   )
+# 
+# brute_force_knapsack(x = knapsack_objects[1:8,], W = 3500, paralellize = FALSE)
 
-brute_force_knapsack(x = knapsack_objects[1:8,], W = 3500, paralellize = FALSE)
-# 
-# knapsack_objects
-# 
-# which.max(knapsack_objects$w)
-# 
