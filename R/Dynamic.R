@@ -1,12 +1,9 @@
 #' Helper Method To Get The Correct Indexes
 #'
-#' @param final_mat Final matrix of values
-#' @param val Final value
+#' @param final_mat Calculated matrix
+#' @param val Value to be found in the matrix rows
 #'
-#' @return A list containing two elements: value which contains the sum of the
-#' elements and elements containing the set of elements accommodated in the 
-#' knapsack
-#' @export
+#' @return The index of the row containing the value
 #'
 #' @examples
 seq_of_decision <- function(final_mat, val){
@@ -24,7 +21,9 @@ seq_of_decision <- function(final_mat, val){
 #' @param W Maximum weight of the knapsack
 #'
 #'
-#' @return
+#' @return A list containing two elements: value which contains the sum of the
+#' elements and elements containing the set of elements accommodated in the 
+#' knapsack
 #' @export
 #'
 #' @examples

@@ -3,7 +3,6 @@
 export(brute_force_knapsack)
 export(greedy_knapsack)
 export(knapsack_dynamic)
-export(seq_of_decision)
 import(dplyr)
 import(parallel)
 import(tidyr)

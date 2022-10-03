@@ -11,6 +11,11 @@ knapsack_dynamic(x, W)
 
 \item{W}{Maximum weight of the knapsack}
 }
+\value{
+A list containing two elements: value which contains the sum of the
+elements and elements containing the set of elements accommodated in the 
+knapsack
+}
 \description{
 Solving Knapsack Problem By Dynamic Method
 }

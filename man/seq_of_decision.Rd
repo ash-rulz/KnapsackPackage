@@ -7,14 +7,12 @@
 seq_of_decision(final_mat, val)
 }
 \arguments{
-\item{final_mat}{Final matrix of values}
+\item{final_mat}{Calculated matrix}
 
-\item{val}{Final value}
+\item{val}{Value to be found in the matrix rows}
 }
 \value{
-A list containing two elements: value which contains the sum of the
-elements and elements containing the set of elements accommodated in the 
-knapsack
+The index of the row containing the value
 }
 \description{
 Helper Method To Get The Correct Indexes

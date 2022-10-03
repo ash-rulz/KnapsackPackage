@@ -5,12 +5,12 @@ Version: 1.0
 Date: 2022-09-29
 Author: c(
     person('Varun', 'Ravi', email = 'varsi146@student.liu.se', role = 'aut')
-    person('Aswath', 'Gopinath', email = 'aswma317@student.liu.se', role = 'aut')
+    person('Aswath', 'Gopinath', email = 'aswma317@student.liu.se', 
+    role = 'aut')
 Maintainer: Varun Ravi <varsi146@student.liu.se>
-Description: Here we solve the knapsack problem by applying the brute force
-    algorithm which sorts through all possible combinations of items and selects
-    those items whose weights are less than knapsack weight and simultaneously
-    have the greatest value.
+Description: Here we solve the knapsack problem by applying 3 different 
+    algorithms: the brute force algorithm, dynamic programming and greedy 
+    heuristic. 
 License: GPL (>= 3)
 Suggests: 
     knitr,

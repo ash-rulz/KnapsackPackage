@@ -1,5 +1,5 @@
 ---
-title: "lab_report_knapsack"
+title: "Knapsack package vignette"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{lab_report_knapsack}
@@ -17,3 +17,62 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(KnapsackPackage)
 ```
+The KnapsackPackage has 3 different solutions to solve the knapsack problem. 
+The knapsack problem is the problem to find the list of elements that can fit a
+knapsack of a given weight.
+The KnapsackPackage has 3 different solutions:
+
+1. Brute force search: The brute force algorithm sorts through all possible 
+combinations of items and selects those items whose weights are less than 
+knapsack weight and simultaneously have the greatest value.
+2. Dynamic Programming: There are 2 steps in dynamic programming: first step is 
+to find the matrix using the formula
+$v[i,j] = max{v[i-1, w], v[i-1,w-w[i]]+p[i]}$. Using the matrix and sequence of 
+decisions, the elements and the sum of values is found.
+3. Greedy heuristic: In this algorithm, the highest valuable elements are found 
+and they are added to the knapsack first.
+
+All 3 functions take 2 inputs:
+x - Containing the input matrix containing the elements
+W - Maximum weight of the knapsack
+The brute force function takes an extra input to run it in parallel mode.
+
+Questions:
+    ```{r, include = TRUE, eval = TRUE, echo = FALSE}
+    suppressWarnings(RNGversion(min(as.character(getRversion()),"3.5.3")))
+    set.seed(42, kind = "Mersenne-Twister", normal.kind = "Inversion")
+    n <- 2000
+    knapsack_objects <- data.frame(
+      w=sample(1:4000, size = n, replace = TRUE),
+      v=runif(n = n, 0, 10000)
+    )
+    ```
+Brute force search
+
+How much time does it takes to run the algorithm for n = 16 objects?
+    ```{r, include = TRUE, eval = TRUE, echo = TRUE}
+    system.time(brute_force_knapsack(x = knapsack_objects[1:16,], W = 3500, parallel = FALSE))
+    ```
+
+Dynamic programming
+
+How much time does it takes to run the algorithm for n = 500 objects?
+    ```{r, include = TRUE, eval = TRUE, echo = TRUE}
+    system.time(knapsack_dynamic(x = knapsack_objects[1:500,], W = 3500))
+    ```
+
+Greedy heuristic
+
+How much time does it takes to run the algorithm for n = 1000000 objects?
+    ```{r, include = TRUE, eval = TRUE, echo = FALSE}
+    suppressWarnings(RNGversion(min(as.character(getRversion()),"3.5.3")))
+    set.seed(42, kind = "Mersenne-Twister", normal.kind = "Inversion")
+    n <- 1000000
+    knapsack_objects <- data.frame(
+      w=sample(1:4000, size = n, replace = TRUE),
+      v=runif(n = n, 0, 10000)
+    )
+    ```
+    ```{r, include = TRUE, eval = TRUE, echo = TRUE}
+    system.time(greedy_knapsack(x = knapsack_objects[1:1000000,], W = 3500))
+    ```
