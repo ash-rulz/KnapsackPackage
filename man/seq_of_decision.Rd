@@ -11,6 +11,11 @@ seq_of_decision(final_mat, val)
 
 \item{val}{Final value}
 }
+\value{
+A list containing two elements: value which contains the sum of the
+elements and elements containing the set of elements accommodated in the 
+knapsack
+}
 \description{
 Helper Method To Get The Correct Indexes
 }

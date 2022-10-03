@@ -4,7 +4,9 @@
 #' @param W Maximum weight of the knapsack
 #' @param parallel Argument to parallelize brute force
 #'
-#' @return
+#' @return A list containing two elements: value which contains the sum of the
+#' elements and elements containing the set of elements accommodated in the 
+#' knapsack
 #' @import tidyr
 #' @import dplyr
 #' @import parallel

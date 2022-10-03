@@ -3,7 +3,9 @@
 #' @param final_mat Final matrix of values
 #' @param val Final value
 #'
-#' @return
+#' @return A list containing two elements: value which contains the sum of the
+#' elements and elements containing the set of elements accommodated in the 
+#' knapsack
 #' @export
 #'
 #' @examples

@@ -4,14 +4,17 @@
 #' @param W Maximum weight of the knapsack
 #'  
 #'
-#' @return
+#' @return A list containing two elements: value which contains the sum of the
+#' elements and elements containing the set of elements accommodated in the 
+#' knapsack
 #' @export
 #'
-#' @examples
 greedy_knapsack <- function(x, W){
   if(W <=0) stop("Invalid weight")
   
   init_mat <- NULL
+  vByw <- NULL
+  
   indx <- seq(from=1, to=nrow(x), by = 1)
   init_mat <- cbind(init_mat, indx)
   init_mat <- dplyr::bind_cols(init_mat,x)
@@ -32,17 +35,3 @@ greedy_knapsack <- function(x, W){
   }
   return(list(value = round(value), elements= elements))
 }
-
-RNGversion(min(as.character(getRversion()),"3.5.3"))
-set.seed(42, kind = "Mersenne-Twister", normal.kind = "Inversion")
-n <- 2000
-knapsack_objects <-
-  data.frame(
-    w=sample(1:1000000, size = n, replace = TRUE),
-    v=runif(n = n, 0, 1000000)
-  )
-# x = matrix(data = c(2,3,5,7,1,4,1,10,5,15,7,6,18,3), nrow = 7, ncol = 2)
-# colnames(x) <- c('w','v')
-# W = 15
-greedy_knapsack(x = knapsack_objects[1:800,], W = 3500)
-

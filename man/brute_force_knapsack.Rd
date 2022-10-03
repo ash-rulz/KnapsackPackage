@@ -13,6 +13,11 @@ brute_force_knapsack(x, W, parallel = FALSE)
 
 \item{parallel}{Argument to parallelize brute force}
 }
+\value{
+A list containing two elements: value which contains the sum of the
+elements and elements containing the set of elements accommodated in the 
+knapsack
+}
 \description{
 Solving Knapsack Problem By Brute Force Method
 }
