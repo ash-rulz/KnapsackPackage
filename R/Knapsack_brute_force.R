@@ -43,7 +43,7 @@ brute_force_knapsack <- function(x, W, parallel = FALSE){
     # w_sum_val
     colnames(w_sum_val) <- c("sum_wt_i", "sum_val_i")
     # w_sum_val
-    stopCluster(cl1)
+    parallel::stopCluster(cl1)
     
     cl2 <- parallel::makeCluster(cores, type = 'PSOCK')
     # clusterExport(cl1, varlist = 'items_element')
@@ -55,7 +55,7 @@ brute_force_knapsack <- function(x, W, parallel = FALSE){
     item_comb <- as.data.frame(item_comb)
     colnames(item_comb) <- c('item1', 'item2')
     # item_comb
-    stopCluster(cl2)
+    parallel::stopCluster(cl2)
     
     w_sum_val <- cbind(w_sum_val, item_comb)
     row.names(w_sum_val) <- NULL

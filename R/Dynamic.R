@@ -72,3 +72,13 @@ knapsack_objects <-
 system.time(lst <- knapsack_dynamic(x = knapsack_objects[1:8,],
                                     W = 3500))
 # It takes around 6 seconds
+# microbenchmark(
+#   brute_force_knapsack(x = knapsack_objects[1:25,],
+#                        W = 3500),
+#   brute_force_knapsack(x = knapsack_objects[1:25,],
+#                        W = 3500, TRUE),
+#   knapsack_dynamic(x = knapsack_objects[1:25,],
+#                    W = 3500),
+#   greedy_knapsack(x = knapsack_objects[1:25,],
+#                   W = 3500)
+# )
