@@ -86,4 +86,7 @@ below:
     ```
 This was happening inside the loop and it was trying to refer to x$w for i-1 
 index. The difference in running-time is clearly visible:
-![Dynamic benchmarking new vs old method](https://raw.githubusercontent.com/ash-rulz/KnapsackPackage/blob/main/pics/Dynamic.png)
+
+```{r, out.width = "800px", echo=FALSE}
+knitr::include_graphics("https://raw.githubusercontent.com/ash-rulz/KnapsackPackage/main/vignettes/Dynamic.png")
+```
