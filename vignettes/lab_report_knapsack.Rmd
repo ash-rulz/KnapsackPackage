@@ -16,7 +16,6 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(KnapsackPackage)
-library(microbenchmark)
 ```
 ## General Overview
 The KnapsackPackage has 3 different solutions to solve the knapsack problem. 
