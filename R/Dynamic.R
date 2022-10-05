@@ -32,9 +32,10 @@ knapsack_dynamic <- function(x, W){
   final_mat <- matrix(0, nrow = nrow(x)+1, ncol = W+1)
   
   #Calculating the values in the data-frame using the formula
+  prev_weight <- x$w[1]
   for (i in 2:(nrow(x)+1)) {
     for (j in 2:(W+1)) {
-      temp_var <- (j-x$w[i-1])
+      temp_var <- (j-prev_weight)
       if(temp_var<=0){
         final_mat[i,j] <- final_mat[i-1,j]
       }
@@ -43,6 +44,7 @@ knapsack_dynamic <- function(x, W){
         final_mat[i,j] <- max(final_mat[i-1,j], temp_val)
       }
     }
+    prev_weight = x$w[i]
   }
   
   #Getting the correct indices to be returned using sequence of decisions
@@ -61,24 +63,16 @@ knapsack_dynamic <- function(x, W){
                        elements = final_index)
   
 }
-RNGversion(min(as.character(getRversion()),"3.5.3"))
-set.seed(42, kind = "Mersenne-Twister", normal.kind = "Inversion")
-n <- 2000
-knapsack_objects <-
-  data.frame(
-    w=sample(1:4000, size = n, replace = TRUE),
-    v=runif(n = n, 0, 10000)
-  )
-system.time(lst <- knapsack_dynamic(x = knapsack_objects[1:8,],
-                                    W = 3500))
+# RNGversion(min(as.character(getRversion()),"3.5.3"))
+# set.seed(42, kind = "Mersenne-Twister", normal.kind = "Inversion")
+# n <- 2000
+# knapsack_objects <-
+#   data.frame(
+#     w=sample(1:4000, size = n, replace = TRUE),
+#     v=runif(n = n, 0, 10000)
+#   )
+# x = knapsack_objects[1:8,]
+# W = 3500
+# system.time(lst <- knapsack_dynamic(x = knapsack_objects[1:8,],
+#                                     W = 3500))
 # It takes around 6 seconds
-# microbenchmark(
-#   brute_force_knapsack(x = knapsack_objects[1:25,],
-#                        W = 3500),
-#   brute_force_knapsack(x = knapsack_objects[1:25,],
-#                        W = 3500, TRUE),
-#   knapsack_dynamic(x = knapsack_objects[1:25,],
-#                    W = 3500),
-#   greedy_knapsack(x = knapsack_objects[1:25,],
-#                   W = 3500)
-# )

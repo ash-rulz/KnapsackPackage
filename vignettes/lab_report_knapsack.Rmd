@@ -16,7 +16,9 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(KnapsackPackage)
+library(microbenchmark)
 ```
+## General Overview
 The KnapsackPackage has 3 different solutions to solve the knapsack problem. 
 The knapsack problem is the problem to find the list of elements that can fit a
 knapsack of a given weight.
@@ -37,7 +39,7 @@ x - Containing the input matrix containing the elements
 W - Maximum weight of the knapsack
 The brute force function takes an extra input to run it in parallel mode.
 
-Questions:
+## Questions:
     ```{r, include = TRUE, eval = TRUE, echo = FALSE}
     suppressWarnings(RNGversion(min(as.character(getRversion()),"3.5.3")))
     set.seed(42, kind = "Mersenne-Twister", normal.kind = "Inversion")
@@ -47,21 +49,21 @@ Questions:
       v=runif(n = n, 0, 10000)
     )
     ```
-Brute force search
+### Brute force search
 
 How much time does it takes to run the algorithm for n = 16 objects?
     ```{r, include = TRUE, eval = TRUE, echo = TRUE}
     system.time(brute_force_knapsack(x = knapsack_objects[1:16,], W = 3500, parallel = FALSE))
     ```
 
-Dynamic programming
+### Dynamic programming
 
 How much time does it takes to run the algorithm for n = 500 objects?
     ```{r, include = TRUE, eval = TRUE, echo = TRUE}
     system.time(knapsack_dynamic(x = knapsack_objects[1:500,], W = 3500))
     ```
 
-Greedy heuristic
+### Greedy heuristic
 
 How much time does it takes to run the algorithm for n = 1000000 objects?
     ```{r, include = TRUE, eval = TRUE, echo = FALSE}
@@ -76,3 +78,13 @@ How much time does it takes to run the algorithm for n = 1000000 objects?
     ```{r, include = TRUE, eval = TRUE, echo = TRUE}
     system.time(greedy_knapsack(x = knapsack_objects[1:1000000,], W = 3500))
     ```
+
+## Profiling
+In knapsack_dynamic method, there was a line which calculated temp_var as shown 
+below:
+    ```{r, include = TRUE, eval = FALSE, echo = TRUE}
+    temp_var <- (j-x$w[i-1])	
+    ```
+This was happening inside the loop and it was trying to refer to x$w for i-1 
+index. The difference in running-time is clearly visible:
+![Dynamic benchmarking new vs old method](https://raw.githubusercontent.com/ash-rulz/KnapsackPackage/blob/main/pics/Dynamic.png)
