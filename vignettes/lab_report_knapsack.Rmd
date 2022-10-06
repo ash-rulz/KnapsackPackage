@@ -54,6 +54,11 @@ How much time does it takes to run the algorithm for n = 16 objects?
     ```{r, include = TRUE, eval = TRUE, echo = TRUE}
     system.time(brute_force_knapsack(x = knapsack_objects[1:16,], W = 3500, parallel = FALSE))
     ```
+What performance gain could you get by parallelizing brute force search?
+    ```{r, include = TRUE, eval = TRUE, echo = TRUE}
+    system.time(brute_force_knapsack(x = knapsack_objects[1:16,], W = 3500, parallel = TRUE))
+    ```
+Note: On parallelization, as seen above, the run-time as compared to non-parallelized brute force is more. When profiled, we found that the "makeCluster" line is taking up most time. Hence the delay while running in parallel mode.
 
 ### Dynamic programming
 
@@ -85,7 +90,7 @@ below:
     temp_var <- (j-x$w[i-1])	
     ```
 This was happening inside the loop and it was trying to refer to x$w for i-1 
-index. The difference in running-time is clearly visible:
+index. The new implementation removed this back-reference and the difference in running-time is clearly visible:
 
 ```{r, out.width = "800px", echo=FALSE}
 knitr::include_graphics("https://raw.githubusercontent.com/ash-rulz/KnapsackPackage/main/vignettes/Dynamic.png")
