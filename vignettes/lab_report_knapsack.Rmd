@@ -55,10 +55,7 @@ How much time does it takes to run the algorithm for n = 16 objects?
     system.time(brute_force_knapsack(x = knapsack_objects[1:16,], W = 3500, parallel = FALSE))
     ```
 What performance gain could you get by parallelizing brute force search?
-    ```{r, include = TRUE, eval = TRUE, echo = TRUE}
-    system.time(brute_force_knapsack(x = knapsack_objects[1:16,], W = 3500, parallel = TRUE))
-    ```
-Note: On parallelization, as seen above, the run-time as compared to non-parallelized brute force is more. When profiled, we found that the "makeCluster" line is taking up most time. Hence the delay while running in parallel mode.
+Note: On parallelization, the run-time as compared to non-parallelized brute force is more. When profiled, we found that the "makeCluster" line is taking up most time. Hence the delay while running in parallel mode.
 
 ### Dynamic programming
 
